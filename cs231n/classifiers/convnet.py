@@ -1,8 +1,8 @@
 import numpy as np
 
-from cs231n.layers import *
-from cs231n.fast_layers import *
-from cs231n.layer_utils import *
+from layers import *
+from fast_layers import *
+from layer_utils import *
 
 
 
@@ -73,8 +73,8 @@ def two_layer_convnet(X, model, y=None, reg=0.0, dropout=False):
   return loss, grads
 
 
-def init_two_layer_convnet(weight_scale=1e-3, bias_scale=0, input_shape=(3, 32, 32),
-                           num_classes=10, num_filters=32, filter_size=5):
+def init_two_layer_convnet(weight_scale=1e-3, bias_scale=0, input_shape=(1, 64, 64),
+                           num_classes=121, num_filters=32, filter_size=3):
   """
   Initialize the weights for a two-layer ConvNet.
 
@@ -155,8 +155,8 @@ def custom_convnet(X, model, y=None, reg=0.0, dropout=False):
   return loss, grads
 
   
-def init_custom_convnet(weight_scale=1e-3, bias_scale=0, input_shape=(3, 32, 32),
-					   num_classes=10, num_filters=10, filter_size=3):
+def init_custom_convnet(weight_scale=1e-3, bias_scale=0, input_shape=(1, 64, 64),
+					   num_classes=121, num_filters=32, filter_size=3):
 
 	C, H, W = input_shape
 	assert filter_size % 2 == 1, 'Filter size must be odd; got %d' % filter_size

@@ -49,8 +49,10 @@ def transform_img(img_arr):
 
 def transform_data():
 	#build a huge numpy array
-	num_classes = len(class_dirs)
+	num_classes = len(class_dirs) 
 	num_examples = 30336 #empirical finding
+	print 'Num Classes:' , num_classes
+	print 'Num Examples:', num_examples
 	target_sz = 64
 	X = np.empty((num_examples, 1, target_sz, target_sz))
 	y = np.empty((num_examples, ))
@@ -69,37 +71,14 @@ def transform_data():
 	
 	datadict = {'data' : X, 'labels' : y}
 	writeToPklz('train_datadict_initial', datadict)
-				
-			
-	
-transform_data()
 
 
+def load_train_data(filename='train_datadict_initial'):
+	datadict = getObjFromPklz(filename)
+	X = datadict['data']
+	Y = datadict['labels']
+	return X,Y
 
 
-
-
-def load_CIFAR_batch(filename):
-  """ load single batch of cifar """
-  with open(filename, 'r') as f:
-    datadict = pickle.load(f)
-    X = datadict['data']
-    Y = datadict['labels']
-    X = X.reshape(10000, 3, 32, 32).transpose(0,2,3,1).astype("float")
-    Y = np.array(Y)
-    return X, Y
-
-def load_CIFAR10(ROOT):
-  """ load all of cifar """
-  xs = []
-  ys = []
-  for b in range(1,6):
-    f = os.path.join(ROOT, 'data_batch_%d' % (b, ))
-    X, Y = load_CIFAR_batch(f)
-    xs.append(X)
-    ys.append(Y)    
-  Xtr = np.concatenate(xs)
-  Ytr = np.concatenate(ys)
-  del X, Y
-  Xte, Yte = load_CIFAR_batch(os.path.join(ROOT, 'test_batch'))
-  return Xtr, Ytr, Xte, Yte
+#Turn on and off to do automatically
+#transform_data()
