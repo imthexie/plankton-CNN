@@ -4,7 +4,7 @@ import numpy as np
 from classifier_trainer import ClassifierTrainer
 from gradient_check import eval_numerical_gradient
 from classifiers.convnet import *
-
+from data_utils import writeToPklz
 def rel_error(x, y):
   """ returns relative error """
   return np.max(np.abs(x - y) / (np.maximum(1e-8, np.abs(x) + np.abs(y))))
@@ -108,8 +108,11 @@ for lr in lrates:
             ensemble_model['b2'] += best_model['b2']
             ensemble_model['W3'] += best_model['W3']
             ensemble_model['b3'] += best_model['b3']
-            
             num_models+=1
+	weightDict = {'W1' : ensemble_model['W1'] / num_models, 'b1' : ensemble_model['b1'] / num_models, \
+						'W2' : ensemble_model['W2'] / num_models, 'b2' : ensemble_model['b2'] / num_models, \
+						'W3' : ensemble_model['W3'] / num_models, 'b3' : ensemble_model['b3'] / num_models}
+	writeToPklz('weights', weightDict)
 #average models for ensemble        
 ensemble_model['W1'] /= num_models
 ensemble_model['b1'] /= num_models
