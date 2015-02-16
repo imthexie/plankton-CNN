@@ -44,7 +44,7 @@ def get_train_data(num_training=29336, num_validation=1000, num_test=1000):
 	#X_val = X_val.transpose(0, 3, 1, 2).copy()
 	#x_test = X_test.transpose(0, 3, 1, 2).copy()
 
-	return X_train, y_train, X_val, y_val
+	return X_train, y_train.astype(int), X_val, y_val.astype(int)
 
 
 # Invoke the above function to get our data.
@@ -70,7 +70,7 @@ best_model, loss_history, train_acc_history, val_acc_history = trainer.train(
 reg = [1e-4, 1e-3, 2e-3]
 lrates = [1e-3]
 best_val = 0
-ensemble_model = None #ensemble
+ensemble_model = None #ensemble #monotonic #learnlearnlearn #turndownfornet
 first = True
 num_models = 0
 
