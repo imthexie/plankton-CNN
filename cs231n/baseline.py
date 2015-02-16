@@ -22,12 +22,26 @@ def get_train_data(num_training=29336, num_validation=1000, num_test=1000):
 	X_train, y_train = load_train_data('train_datadict_initial')
 		
 	# Subsample the data
-	mask = range(num_training, num_training + num_validation)
-	X_val = X_train[mask]
-	y_val = y_train[mask]
-	mask = range(num_training)
-	X_train = X_train[mask]
-	y_train = y_train[mask]
+	mask = range(0, num_training + num_validation)
+	val_mask = np.random.choice(mask, size=num_validation, replace = False)
+	val_mask.astype(int)
+	X_val = X_train[val_mask]
+	y_val = y_train[val_mask]
+
+	train_mask = np.zeros((num_training, ), dtype=np.int)
+	idx = 0
+	for m in xrange(num_training + num_validation):
+		addToList = True
+		for v in val_mask:
+			if m == v:
+				addToList = False
+				break
+		if addToList:
+			train_mask[idx] = m
+			idx += 1
+	
+	X_train = X_train[train_mask]
+	y_train = y_train[train_mask]
 	#mask = range(num_test)
 	#X_test = X_test[mask]
 	#y_test = y_test[mask]
