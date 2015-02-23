@@ -79,6 +79,48 @@ def load_train_data(filename='train_datadict_initial'):
 	Y = datadict['labels']
 	return X,Y
 
+#write training data paths and labels to file for caffe to turn into leveldb 
+def outputDataTxtForCaffe():
+			
+	target_sz = 128	
+	processed_dirpath = 'processed_train/'
+	
+	example_count = 0
+	with open('dataTxtFileForCaffe_noval_train.txt', 'r+') as f:
+		for index, class_dir in enumerate(class_dirs):
+			class_dirpath = join(dirpath, class_dir)
+			for img in listdir(class_dirpath):
+				img_path = join(class_dirpath, img)
+				if img_path.endswith('.jpg'):
+					img_arr = misc.imread(img_path)
+					img_arr = transform_img(img_arr)
+					img_arr = misc.imresize(img_arr, (target_sz, target_sz))
+					new_imgpath = join(processed_dirpath, img)
+					misc.imsave(new_imgpath, img_arr)
+					f.write(new_imgpath + ' ' + str(index) + '\n')
+
+
+def splitProcessedData():
+	#split randomly validation set
+	num_examples = 30336
+	num_validation = 1000
+	num_training = num_examples - num_validation
+	mask = range(0, num_examples)
+	val_mask = np.random.choice(mask, size=num_validation, replace = False)
+	val_mask.astype(int)
+
+	with open('dataTxtFileForCaffe.txt', 'r') as f:
+		with open('dataTxtFileForCaffe_noval_train.txt', 'w+') as f_train:
+			with open('dataTxtFileForCaffe_validation_train.txt', 'w+') as f_val:
+				for m in xrange(num_training + num_validation):
+					if m in val_mask:
+						f_val.write(f.readline())
+					else:
+						f_train.write(f.readline())
+						
+		
+#outputDataTxtForCaffe()
+splitProcessedData()
 
 #Turn on and off to do automatically
 #transform_data()
