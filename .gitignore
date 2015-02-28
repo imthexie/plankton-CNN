@@ -1,0 +1,6 @@
+cs231n/processed_train/*
+cs231n/augmented_train/*
+cs231n/augmented_train2/*
+cs231n/VGG_augmented_train2/*
+cs231n/VGG_augmented_train3/*
+.env
