@@ -6,8 +6,12 @@ layers {
   data_param {
     source: "noval_traindata_db"
     batch_size: 30
-    scale: 0.00390625
 	backend: LMDB
+  }
+  
+  transform_param {
+	mirror: 1
+	crop_size: 128
   }
   
   include {
@@ -25,7 +29,6 @@ layers {
   data_param {
     source: "val_traindata_db"
     batch_size: 10
-    scale: 0.00390625
 	backend: LMDB
   }
   

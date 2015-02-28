@@ -2,14 +2,14 @@ net: "/afs/ir/users/s/x/sxie/plankton-CNN/cs231n/caffemodel.prototxt"
 test_iter: 100
 test_interval: 100 #test every 
 test_initialization: false
-display: 40
-base_lr: 0.001 #between .01 and .001 
+display: 20
+base_lr: 0.002 #between .01 and .001 
 lr_policy: "step"
-stepsize: 10000 #anneal learning rate every __ iterations
+stepsize: 1000 #anneal learning rate every __ iterations
 gamma: 0.96
 max_iter: 10000000
 momentum: 0.9
 weight_decay: 0.0002
-snapshot: 40 #take snapshot every 1000
-snapshot_prefix: "afs/ir/users/s/x/sxie/plankton-CNN/cs231n/snapshots/snapshot"
+snapshot: 400 #take snapshot every 	
+snapshot_prefix: "snapshots/run3"
 solver_mode: GPU

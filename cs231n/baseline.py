@@ -60,6 +60,7 @@ def get_train_data(num_training=29336, num_validation=1000, num_test=1000):
 
 	return X_train, y_train.astype(int), X_val, y_val.astype(int)
 
+	'''
 
 # Invoke the above function to get our data.
 X_train, y_train, X_val, y_val = get_train_data()
@@ -127,3 +128,4 @@ y_pred_val = np.argmax(scores_val, axis=1)
 val = np.mean(y_pred_val ==  y_val)
 
 print "Ensemble val acc: ", val 
+'''
