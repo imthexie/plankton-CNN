@@ -5,8 +5,8 @@ layers {
   type: DATA
   
   data_param {
-    source: "noval_traindata_db"
-    batch_size: 30
+    source: "VGG_train_data"
+    batch_size: 10
 	backend: LMDB
   }
   include {
@@ -21,8 +21,8 @@ layers {
   type: DATA
   
   data_param {
-    source: "val_traindata_db"
-    batch_size: 10
+    source: "VGG_val_data"
+    batch_size: 1
 	backend: LMDB
   }
   include {
@@ -358,8 +358,8 @@ layers {
 }
 layers {
   bottom: "fc7"
-  top: "fc8"
-  name: "fc8"
+  top: "new_fc8"
+  name: "new_fc8"
   type: INNER_PRODUCT
   inner_product_param {
     num_output: 121
@@ -368,7 +368,7 @@ layers {
 layers {
   name: "accuracy"
   type: ACCURACY
-  bottom: "fc8"
+  bottom: "new_fc8"
   bottom: "label"
   top:"accuracy"
 
@@ -377,7 +377,14 @@ layers {
 layers {
   name: "softmax_loss"
   type: SOFTMAX_LOSS
-  bottom: "fc8"
+  bottom: "new_fc8"
   bottom: "label"
   top: "softmax_loss"
+}
+
+layers {
+  name: "softmax"
+  type: SOFTMAX
+  bottom: "new_fc8"
+  top: "softmax"
 }

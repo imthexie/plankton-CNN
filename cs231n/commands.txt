@@ -4,5 +4,28 @@ setenv PYTHONPATH '/afs/ir/users/s/x/sxie/caffe/python:$PYTHONPATH'
 
 ./build/tools/caffe train -solver ~/plankton-CNN/cs231n/googlenet_solver.prototxt -weights bvlc_googlenet.caffemodel
 
+./build/tools/caffe train -solver ~/plankton-CNN/cs231n/VGG_solver.prototxt -weights snapshots/VGG_ILSVRC_16_layers.caffemodel
+
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/afs/ir/users/s/x/sxie/lib:/afs/ir/users/s/x/sxie/leveldb:/usr/local/cuda/lib64:/usr/local/cuda/lib
 export PYTHONPATH=/afs/ir/users/s/x/sxie/caffe/python:$PYTHONPATH
+
+
+Mount EBS volume
+sudo mkdir /data
+sudo mount /dev/xvdf /data
+
+AccessKey:
+AKIAJRP7RHX5YRGMBHEA
+Secret Access Key:
+PcpabR6YPbZSfOyJRIrZXEnqWVJXPoyX6bZB+7lc
+
+
+sudo aws --region us-east-1 s3 sync . s3://planktondatasxie
+
+ssh -i ec2ley.pem ubuntu@52.0.241.46
+
+ #transform_param {
+  #  mean_file:"7layer_train_mean.binaryproto"
+  #}
+
+

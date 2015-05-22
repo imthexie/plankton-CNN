@@ -135,8 +135,8 @@ def write_with_prob(f1, f2, prob, data):
 def outputDataTxtForCaffe():
 			
 	val_percentile_split = 0.033
-	target_sz = 128	
-	processed_dirpath_root = 'VGG_augmented_train'
+	target_sz = 224	
+	processed_dirpath_root = 'VGG_train'
 	processed_dirpath = processed_dirpath_root + '/'
 	
 	suffix = 2
@@ -220,9 +220,18 @@ def splitProcessedData():
 					else:
 						f_train.write(f.readline())
 						
-		
-outputDataTxtForCaffe()
+def outputFirstLineSubmission():
+	with open('submission_firstline.txt', 'w+') as f:
+		line = "image,"
+		for index, class_dir in enumerate(class_dirs):
+			if index == 120:
+				line += class_dir + '\n'
+			else: 
+				line += class_dir + ','
+		f.write(line)
+			
+#outputDataTxtForCaffe()
 #splitProcessedData()
-
+outputFirstLineSubmission()
 #Turn on and off to do automatically
 #transform_data()
